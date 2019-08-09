@@ -15,6 +15,7 @@ int main(int argc, char *argv[]){
   puts(argv[1]);
   puts(argv[2]);
   FILE* input = fopen (argv[1],"r"); 
+  //TODO add auto spliter and auto multi threading
   int output = open (argv[2],O_WRONLY|O_CREAT); 
 
 
@@ -82,7 +83,7 @@ int main(int argc, char *argv[]){
   PINRT1 //writer.writeInt(block.getNode_type());
   PINRT1f//writer.writeFloat(block.getNode_weight());
   PINRT1 //writer.writeInt(meta.getEdge_type_num());
-  //only have one??
+  //only have one?? TODO
   write(output, &edge_num,sizeof(int64_t));//total num of E
    //sumWeight should be EdgeNum*1.0
   float sumWeight = edge_num*1.0;
@@ -94,14 +95,18 @@ int main(int argc, char *argv[]){
   //no uint64 feature
   PINRT0
   
-  //2 float feature
+  //2 float feature getNode_float_feature_num
   write(output,&two,sizeof(int32_t));
   //size of 1st feature
   PINRT1
+  //size of 2nd feature
+  write(output,ONEHundred,sizeof(int32_t));//100 for each node
+  
+  //content of 1st feature
   write(output,&feature1,sizeof(float));
   featureInt=(featureInt+1)%2;
   feature1 = featureInt;
-  write(output,ONEHundred,sizeof(int32_t));//100 for each node
+  //content of 2nd feature
   write(output,features,sizeof(float)*100);
   
   //no binary feature
@@ -114,8 +119,8 @@ int main(int argc, char *argv[]){
      write(output,&edgeInfoBytes,sizeof(int32_t));
   }
   for(int i=0;i<edge_num;i++){//for each edge
-     write(output,&a,sizeof(int64_t));
-     write(output,&edges[i],sizeof(int64_t));
+     write(output,&a,sizeof(int64_t));//writer.writeLong(edge.getSrc_id());
+     write(output,&edges[i],sizeof(int64_t));//writer.writeLong(edge.getDst_id());
      PINRT1
      PINRT1f
      //no edge feature
