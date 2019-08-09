@@ -29,8 +29,8 @@ char* feature_ends="]},";
 char* template_neighbor = "\"neighbor\": {\"1\":{},\"0\":{";
 char* neighbor_ends="}";
 int a, next_a;
-char b[20]; //to store the next int as string
-
+char b[15]; //to store the next int as string
+char feature[10];
 //init the buffer for read in the char
 char* features_str = malloc(SIZE);
 char* neighbor_str = malloc(SIZE);
@@ -55,18 +55,17 @@ if(scanf("%d	",&next_a) == EOF) break;
 //test if this is still the last node
 // int next_a = get();
 // std::cin.putback(next_a);//the only place used cpp, may cause conflict?
-#define next_feature (f+1)%10
-#define next_neig b
-todo add " "
+ f=(f+1)%10;
+ sprintf(feature,"%d",f);
  //build str
  //puts("add to str");//debug
  if(features_str[0] !=0 ) strcat(features_str,",");//skip the first one
  strcat(features_str,"\"");
- strcat(features_str,next_feature);
+ strcat(features_str,feature);
  strcat(features_str,"\"");
 
  if(neighbor_str[0] !=0 ) strcat(neighbor_str,",");//skip the first one
- strcat(neighbor_str,next_neig);
+ strcat(neighbor_str,b);
  strcat(neighbor_str,":1");
 
 if(next_a == a){
