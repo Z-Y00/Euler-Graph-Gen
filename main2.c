@@ -13,8 +13,8 @@
 
 int main(int argc, char *argv[]){
 
-  int output = open (argv[0],O_WRONLY); 
-  
+  int output = open (argv[1],O_WRONLY|O_CREAT); 
+  puts(argv[1]);
   int a, next_a;
   int b; //to store the next int as string
   //init the buffer

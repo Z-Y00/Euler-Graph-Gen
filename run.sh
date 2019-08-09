@@ -3,3 +3,4 @@
 
 #if fine, then run it
 cat $1 | ./gen  $2.bin
+chmod 744 $2.bin
