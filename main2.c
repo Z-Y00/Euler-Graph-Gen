@@ -12,9 +12,12 @@
 ///input stdin, output argv[0]
 
 int main(int argc, char *argv[]){
-
-  int output = open (argv[1],O_WRONLY|O_CREAT); 
   puts(argv[1]);
+  puts(argv[2]);
+  FILE* input = fopen (argv[1],"r"); 
+  int output = open (argv[2],O_WRONLY|O_CREAT); 
+
+
   int a, next_a;
   int b; //to store the next int as string
   //init the buffer
@@ -23,7 +26,7 @@ int main(int argc, char *argv[]){
   for(int i=0;i<NUM;i++)
       features[i]=i*i;
   
-  int32_t* edges = malloc(SIZE);
+  int64_t* edges = malloc(SIZE);
   float* bufOf1f = malloc(SIZE);
   for(int i=0;i<NUM;i++)
       bufOf1f[i]=1.0;
@@ -32,64 +35,79 @@ int main(int argc, char *argv[]){
       bufOf1[i]=1;
   int zero=0;
   int OneHundred=100;
-  #define PINRT1    write(output,&bufOf1[0],sizeof(int32_t));
-  #define PINRT1f   write(output,&bufOf1f[0],sizeof(float));
-  #define PINRT0    write(output,&zero,sizeof(int32_t));
+  int32_t two=2;
+  float feature1 = 0.0;
+  int featureInt=0;
+  #define PINRT1     write(output,&bufOf1[0],sizeof(int32_t));
+  #define PINRT1f    write(output,&bufOf1f[0],sizeof(float));
+  #define PINRT0     write(output,&zero,sizeof(int32_t));
   #define ONEHundred &OneHundred
-  #define DEBUG ;//puts("debug");
-  scanf("%d	",&next_a);
+  #define DEBUG      printf("%d: %d\n",a,blockBytes);//puts("debug");
+  fscanf(input,"%d	",&next_a);
   while(true){
   //loop begin
   //read in the data
       a = next_a;
-  scanf("%d",&b);
+  fscanf(input,"%d",&b);
   //test if this is the last node
-  if(scanf("%d	",&next_a) == EOF) break;
+  if(fscanf(input,"%d	",&next_a) == EOF) break;
    //build str
   edges[edge_num]=b;
   if(next_a == a){
       edge_num++;
       continue;
   }
+   edge_num++;//plus one
   //else, add current node, print out this and go to next
-  DEBUG
   
   //output the node
+  // node_id + node_type + node_weight
+  //1  uint64 feature
+  //100 float feature
   int nodeInfoBytes = 8 + 4 + 4 +\
               4 + 4 + 4+\
               edge_num*(12)+\
-              4+\
-              4+4+4+\
+              4+1*(8+4)+\
+              4+4+4*(100)+\
               4;
-  int edgeInfoBytes = 8 * 2+ 4 \
-                          +4+4 \
-                          +4+4;
+  int edgeInfoBytes = 8 * 2 + 4 + 4 \
+                          +4 \
+                          +4;
   
   int blockBytes =  4 + (4 + 4 * edge_num)+nodeInfoBytes+edgeInfoBytes*edge_num;
-  
+  DEBUG
   write(output,&blockBytes,sizeof(int32_t));
   write(output,&nodeInfoBytes,sizeof(int32_t));
-  write(output,&a,sizeof(int64_t));
-  PINRT1
-  PINRT1f
-  PINRT1
+  write(output,&a,sizeof(int64_t));//writer.writeLong(block.getNode_id());
+  PINRT1 //writer.writeInt(block.getNode_type());
+  PINRT1f//writer.writeFloat(block.getNode_weight());
+  PINRT1 //writer.writeInt(meta.getEdge_type_num());
   //only have one??
   write(output, &edge_num,sizeof(int64_t));//total num of E
-  PINRT1f
+   //sumWeight should be EdgeNum*1.0
+  float sumWeight = edge_num*1.0;
+  write(output,&sumWeight,sizeof(float));
   
-  write(output,edges,sizeof(int32_t)*edge_num);//neighborIdList
+  write(output,edges,sizeof(int64_t)*edge_num);//neighborIdList
   write(output,bufOf1,sizeof(float)*edge_num);//neighborWeightList as 1
   
   //no uint64 feature
   PINRT0
-  //1 float feature
+  
+  //2 float feature
+  write(output,&two,sizeof(int32_t));
+  //size of 1st feature
   PINRT1
+  write(output,&feature1,sizeof(float));
+  featureInt=(featureInt+1)%2;
+  feature1 = featureInt;
   write(output,ONEHundred,sizeof(int32_t));//100 for each node
   write(output,features,sizeof(float)*100);
+  
   //no binary feature
   PINRT0
   
-  //L178
+  //writer.writeInt(block.getEdge().size());
   write(output,&edge_num,sizeof(int32_t));
   
   for(int i=0;i<edge_num;i++){//all the same
