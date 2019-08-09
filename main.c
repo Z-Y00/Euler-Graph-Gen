@@ -87,7 +87,7 @@ printf(template_neighbor);
 printf(neighbor_str);
 printf(neighbor_ends);
 
-printf("}");
+printf("}\n");
 
 memset(features_str,0,SIZE);//reset the buf for each run
 memset(neighbor_str,0,SIZE);//reset the buf for each run
