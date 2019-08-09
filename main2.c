@@ -24,7 +24,7 @@ int main(int argc, char *argv[]){
   //init the buffer
   int edge_num = 0;
   float* features = malloc(SIZE);//build feature space and reuse it 
-  for(int i=0;i<NUM;i++)
+  for(int i=0;i<101;i++)
       features[i]=i*i;
   
   int64_t* edges = malloc(SIZE);
@@ -39,11 +39,12 @@ int main(int argc, char *argv[]){
   int32_t two=2;
   float feature1 = 0.0;
   int featureInt=0;
+  bool lastRun = false;
   #define PINRT1     write(output,&bufOf1[0],sizeof(int32_t));
   #define PINRT1f    write(output,&bufOf1f[0],sizeof(float));
   #define PINRT0     write(output,&zero,sizeof(int32_t));
   #define ONEHundred &OneHundred
-  #define DEBUG      printf("%d: %d\n",a,blockBytes);//puts("debug");
+  #define DEBUG      ;// printf("%d: %d %d\n",a,blockBytes,nodeInfoBytes);//puts("debug");
   fscanf(input,"%d	",&next_a);
   while(true){
   //loop begin
@@ -51,29 +52,31 @@ int main(int argc, char *argv[]){
       a = next_a;
   fscanf(input,"%d",&b);
   //test if this is the last node
-  if(fscanf(input,"%d	",&next_a) == EOF) break;
+  if(fscanf(input,"%d	",&next_a) == EOF) {lastRun = true; next_a = 0; }//force it to go on
    //build str
   edges[edge_num]=b;
   if(next_a == a){
       edge_num++;
       continue;
   }
-   edge_num++;//plus one
+   edge_num++;//plus one!
   //else, add current node, print out this and go to next
   
   //output the node
   // node_id + node_type + node_weight
   //1  uint64 feature
   //100 float feature
+  //meta.getEdge_type_num() == 1
   int nodeInfoBytes = 8 + 4 + 4 +\
               4 + 4 + 4+\
               edge_num*(12)+\
-              4+1*(8+4)+\
-              4+4+4*(100)+\
+              4+0*(8+4)+\
+              4+2*4+1*4+4*(100)+\
               4;
   int edgeInfoBytes = 8 * 2 + 4 + 4 \
                           +4 \
-                          +4;
+                          +4 \
+                          +4;//36?
   
   int blockBytes =  4 + (4 + 4 * edge_num)+nodeInfoBytes+edgeInfoBytes*edge_num;
   DEBUG
@@ -83,8 +86,8 @@ int main(int argc, char *argv[]){
   PINRT1 //writer.writeInt(block.getNode_type());
   PINRT1f//writer.writeFloat(block.getNode_weight());
   PINRT1 //writer.writeInt(meta.getEdge_type_num());
-  //only have one?? TODO
-  write(output, &edge_num,sizeof(int64_t));//total num of E
+  //only have one
+  write(output, &edge_num,sizeof(int32_t));//total num of E
    //sumWeight should be EdgeNum*1.0
   float sumWeight = edge_num*1.0;
   write(output,&sumWeight,sizeof(float));
@@ -130,7 +133,9 @@ int main(int argc, char *argv[]){
   }
   //reset the num
   edge_num = 0;
-  }
+  if (lastRun) break;
+      
+}
   
 return 0;
 }
