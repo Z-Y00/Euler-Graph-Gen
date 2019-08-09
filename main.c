@@ -21,13 +21,9 @@ int main(int argc, char *argv[]){
 // FILE * input = fopen (argv[1],"rb"); 
 // if (!input)
 	// return -1; 
-char* template_node_id = "\"node_id\": \"%d\",";
-char* template_type = "\"node_type\": \"0\",";
-char* template_node_weight = "\"node_weight\": \"1\",";
-char* template_feature = "\"float_feature\": {\"0\": [], \"1\": [";
-char* feature_ends="]},";
-char* template_neighbor = "\"neighbor\": {\"1\":{},\"0\":{";
-char* neighbor_ends="}";
+char* template_node_id = "{\"node_id\": \"%d\",\"node_type\": \"0\",\"node_weight\": \"1\",\"float_feature\": {\"0\": [], \"1\": [";
+char* template_neighbor = "]},\"neighbor\": {\"1\":{},\"0\":{";
+char* neighbor_ends="}}\n";
 int a, next_a;
 char b[15]; //to store the next int as string
 char feature[10];
@@ -74,20 +70,11 @@ if(next_a == a){
 //else, add current node, print out this and go to next
 
 //output the node
-printf("{");
 printf(template_node_id,a);
-printf(template_type);
-
-printf(template_node_weight);
-
-printf(template_feature);
 printf(features_str);
-printf(feature_ends);
 printf(template_neighbor);
 printf(neighbor_str);
 printf(neighbor_ends);
-
-printf("}\n");
 
 memset(features_str,0,SIZE);//reset the buf for each run
 memset(neighbor_str,0,SIZE);//reset the buf for each run
