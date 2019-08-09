@@ -1,9 +1,11 @@
 # Gen
 
 ```
+Debug
+./PaRMAT -nVertices 500  -nEdges   25000 -output 1.txt.sorted  -threads 10  -sorted -memUsage 0.6
 
 [yoo@seele Release]$ 
-./PaRMAT -nVertices 5000000  -nEdges   250000000 -output 1.txt.sorted  -threads 14  -sorted -memUsage 0.6
+./PaRMAT -nVertices 5000000  -nEdges   250000000 -output 1.txt.sorted  -threads 10  -sorted -memUsage 0.6
 ./PaRMAT -nVertices 50000000  -nEdges  2500000000 -output 2.txt.sorted  -threads 10  -sorted -memUsage 0.6
 
 ./PaRMAT -nVertices 500000000 -nEdges  25000000000 -output /storage/3.txt  -threads 14  -memUsage 0.6

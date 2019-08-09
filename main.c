@@ -61,8 +61,9 @@ if(scanf("%d	",&next_a) == EOF) break;
  strcat(features_str,"\"");
 
  if(neighbor_str[0] !=0 ) strcat(neighbor_str,",");//skip the first one
+ strcat(neighbor_str,"\"");
  strcat(neighbor_str,b);
- strcat(neighbor_str,":1");
+ strcat(neighbor_str,"\":1");
 
 if(next_a == a){
     continue;
