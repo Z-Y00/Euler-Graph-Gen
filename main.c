@@ -3,7 +3,10 @@
 #include <string.h>
 #include <stdbool.h>
 //size of buf
+//attention, the size need to be just suitable, or it would need more time to memset
 #define SIZE 409600 //as number of bytes, If too small, it will give wird output
+//2nd #define SIZE 4096000 //as number of bytes, If too small, it will give wird output
+
 //for the 3rd ? #define SIZE 4096000 //as number of bytes, If too small, it will give wird output
 
 
@@ -18,12 +21,12 @@ int main(int argc, char *argv[]){
 // FILE * input = fopen (argv[1],"rb"); 
 // if (!input)
 	// return -1; 
-char* template_node_id = "\"node_id\": \"%d\",\n";
-char* template_type = "\"node_type\": \"0\",\n";
-char* template_node_weight = "\"node_weight\": \"1\",\n";
-char* template_feature = "\"float_feature\": {\"0\": [], \"1\": [\n";
-char* feature_ends="]},\n";
-char* template_neighbor = "\"neighbor\": {\"1\":{},\"0\":{\n";
+char* template_node_id = "\"node_id\": \"%d\",";
+char* template_type = "\"node_type\": \"0\",";
+char* template_node_weight = "\"node_weight\": \"1\",";
+char* template_feature = "\"float_feature\": {\"0\": [], \"1\": [";
+char* feature_ends="]},";
+char* template_neighbor = "\"neighbor\": {\"1\":{},\"0\":{";
 char* neighbor_ends="}";
 int a, next_a;
 char b[20]; //to store the next int as string
@@ -67,7 +70,7 @@ if(next_a == a){
 //else, add current node, print out this and go to next
 
 //output the node
-puts("{");
+printf("{");
 printf(template_node_id,a);
 printf(template_type);
 
@@ -80,7 +83,7 @@ printf(template_neighbor);
 printf(neighbor_str);
 printf(neighbor_ends);
 
-puts("}");
+printf("}");
 
 memset(features_str,0,SIZE);//reset the buf for each run
 memset(neighbor_str,0,SIZE);//reset the buf for each run
