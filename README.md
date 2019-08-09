@@ -1,13 +1,22 @@
 # Gen
-```
-./PaRMAT -nVertices 5000000 -nEdges 2500000 -output 1.txt.sorted  -threads 10  -sorted
-
-./PaRMAT -nVertices 50000000 -nEdges 250000000 -output 2.txt-sorted  -threads 10  -sorted
 
 ```
-#Format;
+
+[yoo@seele Release]$ 
+./PaRMAT -nVertices 5000000  -nEdges   250000000 -output 1.txt.sorted  -threads 14  -sorted -memUsage 0.6
+./PaRMAT -nVertices 50000000  -nEdges  2500000000 -output 2.txt.sorted  -threads 10  -sorted -memUsage 0.6
+
+./PaRMAT -nVertices 500000000 -nEdges  25000000000 -output /storage/3.txt  -threads 14  -memUsage 0.6
+
+./PaRMAT -nVertices 500000000 -nEdges  25000000000 -output 3.txt.sorted  -threads 14  -sorted -memUsage 0.6
+
+
+
+```
+
+# Format;
 https://github.com/alibaba/euler/wiki/%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87
-
+```
 {
   "node_id": "顶点编号，int",
   "node_type": "顶点类型，int",
@@ -26,12 +35,12 @@ https://github.com/alibaba/euler/wiki/%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87
     "binary_feature": {"属性编号": "string", "...": "..."}
   }, "..."]
 }
-
-#BUILD
+```
+# BUILD
 ```
 ./build.sh
 ```
-#RUN
+# RUN
 ```
 ./run.sh ../PaRMAT/Release/1.txt.sorted 1.json
 ```
