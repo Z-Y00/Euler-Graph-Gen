@@ -37,6 +37,9 @@ char* neighbor_str = malloc(SIZE);
 memset(features_str,0,SIZE);//reset the buf for each run
 memset(neighbor_str,0,SIZE);//reset the buf for each run
 
+int f=0;
+
+
 scanf("%d	",&next_a);
 while(true){
 //loop begin
@@ -52,13 +55,15 @@ if(scanf("%d	",&next_a) == EOF) break;
 //test if this is still the last node
 // int next_a = get();
 // std::cin.putback(next_a);//the only place used cpp, may cause conflict?
-#define next_feature "1"
+#define next_feature (f+1)%10
 #define next_neig b
-
+todo add " "
  //build str
  //puts("add to str");//debug
  if(features_str[0] !=0 ) strcat(features_str,",");//skip the first one
+ strcat(features_str,"\"");
  strcat(features_str,next_feature);
+ strcat(features_str,"\"");
 
  if(neighbor_str[0] !=0 ) strcat(neighbor_str,",");//skip the first one
  strcat(neighbor_str,next_neig);
