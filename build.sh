@@ -1,2 +1,2 @@
 #!/bin/bash
-gcc ./main.c -o gen -O3
+gcc ./main2.c -o gen -O3

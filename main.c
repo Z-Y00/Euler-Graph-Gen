@@ -4,8 +4,7 @@
 #include <stdbool.h>
 //size of buf
 //attention, the size need to be just suitable, or it would need more time to memset
-#define SIZE 409600 //as number of bytes, If too small, it will give wird output
-//2nd #define SIZE 4096000 //as number of bytes, If too small, it will give wird output
+#define SIZE 4096000 //as number of bytes, If too small, it will give wird output
 
 //for the 3rd ? #define SIZE 4096000 //as number of bytes, If too small, it will give wird output
 
