@@ -6,7 +6,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#define NUM 20*1024*1024  // M of 
+#define NUM 2*1024*1024  // M of 
 #define SIZE NUM*sizeof(int64_t) //as number of bytes, If too small, it will give wird output
 
 ///input stdin, output argv[0]
@@ -84,6 +84,7 @@ if(output8[7]==-1) puts("open failed");
       continue;
   }
    edge_num++;//plus one!
+   if(edge_num>SIZE) {puts("the edge_num"); printf("%d",edge_num);exit(1);}
   //else, add current node, print out this and go to next
   
   //output the node
