@@ -9,3 +9,6 @@ mv ./1-0.dat $2/1/
 mv ./2-*.dat $2/2/
 mv ./4-*.dat $2/4/
 mv ./8-*.dat $2/8/
+
+
+# never write this again, made it hard to run parallel....
