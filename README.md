@@ -13,20 +13,30 @@ Debug
 ./PaRMAT -nVertices 500000000 -nEdges  25000000000 -output 3.txt.sorted  -threads 14  -sorted -memUsage 0.6
 
 
-hdfs dfs -rm -r /home/yoo/euler/examples/test/1
 
 
 DATA_DIR="/home/yoo/euler/examples/$DATASET/$NUM_WORKERS"
 
 DATASET=$1
 
+
+hdfs dfs -mkdir -p /home/yoo/euler/examples/test/1/ /home/yoo/euler/examples/test/2/ /home/yoo/euler/examples/test/4/ /home/yoo/euler/examples/test/8/
+
+./run.sh ../PaRMAT/Release/1.txt.sorted ./test1/ 
+
+
+cd ~/E
+./build.sh
+./run.sh ../PaRMAT/Release/debug.txt ./test1/ 
+hdfs dfs -rm -r /home/yoo/euler/examples/test/1
+hadoop fs -copyFromLocal /home/yoo/Euler-Graph-Gen/test1/1/*  /home/yoo/euler/examples/test/1
+
+cd ~/euler/examples/
 ./train_test.sh test  overlapcache sync  seele 1 seele 1
 
-hdfs dfs -mkdir -p /home/yoo/euler/examples/test/1/
+cd ~/E
 
-hadoop fs -copyFromLocal /home/yoo/E/*  /home/yoo/euler/examples/test/
-
-hdfs dfs -lsr  /home/yoo/euler/examples/test/
+hdfs dfs -lsr -h  /home/yoo/euler/examples/test/
 ```
 
 # Format;

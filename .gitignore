@@ -2,3 +2,4 @@ gen
 *.bin
 *.dat
 1
+.vscode

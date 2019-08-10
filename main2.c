@@ -10,7 +10,12 @@
 #define SIZE NUM*sizeof(int64_t) //as number of bytes, If too small, it will give wird output
 
 ///input stdin, output argv[0]
-
+  void myMemCpy(void *dest, void *src, size_t n){ 
+   char *csrc = (char *)src; 
+   char *cdest = (char *)dest; 
+   for (int i=0; i<n; i++) 
+       cdest[i] = csrc[i]; 
+}
 int main(int argc, char *argv[]){
   puts(argv[1]);
   //puts(argv[2]);
@@ -62,7 +67,8 @@ if(output8[7]==-1) puts("open failed");
   bool lastRun = false;
   char* write_buf = malloc(SIZE*100);
   int write_ptr = 0;
-  #define WRITE(x,y,z) write_buf[write_ptr]=y; write_ptr+=z;
+
+  #define WRITE(x,y,z) myMemCpy(&write_buf[write_ptr],y,z); write_ptr+=z;
   #define PINRT1       WRITE(output,&bufOf1[0],sizeof(int32_t));
   #define PINRT1f      WRITE(output,&bufOf1f[0],sizeof(float));
   #define PINRT0       WRITE(output,&zero,sizeof(int32_t));
@@ -70,13 +76,14 @@ if(output8[7]==-1) puts("open failed");
   #define DEBUG        ;// printf("%d: %d %d\n",a,blockBytes,nodeInfoBytes);//puts("debug");
 
   fscanf(input,"%lld	",&next_a);
-  while(true){
+  while(true){ 	  
   //loop begin
   //read in the data
       a = next_a;
   fscanf(input,"%lld",&b);
   //test if this is the last node
-  if(fscanf(input,"%lld	",&next_a) == EOF) {lastRun = true; next_a = 0; }//force it to go on
+  if(fscanf(input,"%lld	",&next_a) == EOF) 
+  {lastRun = true; next_a = 0; }//force it to go on
    //build str
   edges[edge_num]=b;
   if(next_a == a){
@@ -169,7 +176,7 @@ if(output8[7]==-1) puts("open failed");
   if(result == -1) puts("write failed");
   result = write(output8[output_count%8],write_buf,write_ptr);//8
   if(result == -1) puts("write failed");
-  //printf("%d",write_ptr);
+  printf("%d\n",write_ptr);
 //  puts("write done");
   write_ptr = 0;
 
