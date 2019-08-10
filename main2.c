@@ -13,12 +13,31 @@
 
 int main(int argc, char *argv[]){
   puts(argv[1]);
-  puts(argv[2]);
+  //puts(argv[2]);
   FILE* input = fopen (argv[1],"r"); 
+  int output2[2];
+  int output4[4];
+  int output8[8];
   //TODO add auto spliter roundrubin and opt
-  int output = open (argv[2],O_WRONLY|O_CREAT); 
+  int output = open("./1-0.dat",O_WRONLY|O_CREAT); 
+  output2[0] = open("./2-0.dat",O_WRONLY|O_CREAT);
+  output2[1] = open("./2-1.dat",O_WRONLY|O_CREAT);
+  output4[0] = open("./4-0.dat",O_WRONLY|O_CREAT);
+  output4[1] = open("./4-1.dat",O_WRONLY|O_CREAT);
+  output4[2] = open("./4-2.dat",O_WRONLY|O_CREAT);
+  output4[3] = open("./4-3.dat",O_WRONLY|O_CREAT);
+  output8[0] = open("./8-0.dat",O_WRONLY|O_CREAT);
+  output8[1] = open("./8-1.dat",O_WRONLY|O_CREAT);
+  output8[2] = open("./8-2.dat",O_WRONLY|O_CREAT);
+  output8[3] = open("./8-3.dat",O_WRONLY|O_CREAT);
+  output8[4] = open("./8-4.dat",O_WRONLY|O_CREAT);
+  output8[5] = open("./8-5.dat",O_WRONLY|O_CREAT);
+  output8[6] = open("./8-6.dat",O_WRONLY|O_CREAT);
+  output8[7] = open("./8-7.dat",O_WRONLY|O_CREAT);
 
-
+if(output8[7]==-1) puts("open failed");
+  int output_count = 0; //roundrubin 
+  
   int a, next_a;
   int b; //to store the next int as string
   //init the buffer
@@ -137,13 +156,39 @@ int main(int argc, char *argv[]){
   }
   //reset the num
   edge_num = 0;
-  write_ptr = 0;
+  output_count++;
   //real write
-  write(output,write_buf,write_ptr);
+  int result = 0;
+  result = write(output,write_buf,write_ptr);//1
+  if(result == -1) puts("write failed");
+  result = write(output2[output_count%2],write_buf,write_ptr);//2
+  if(result == -1) puts("write failed");
+  result = write(output4[output_count%4],write_buf,write_ptr);//4
+  if(result == -1) puts("write failed");
+  result = write(output8[output_count%8],write_buf,write_ptr);//8
+  if(result == -1) puts("write failed");
+  //printf("%d",write_ptr);
+//  puts("write done");
+  write_ptr = 0;
+
   if (lastRun) break;
       
 }
-  
+close(output);
+close(output2[0]);  
+close(output2[1]);  
+close(output4[0]);  
+close(output4[1]);
+close(output4[2]);  
+close(output4[3]);
+close(output8[0]);  
+close(output8[1]);
+close(output8[2]);  
+close(output8[3]);
+close(output8[4]);  
+close(output8[5]);
+close(output8[6]);  
+close(output8[7]);
 return 0;
 }
   
