@@ -13,7 +13,8 @@
   void myMemCpy(void *dest, void *src, size_t n){ 
    char *csrc = (char *)src; 
    char *cdest = (char *)dest; 
-   for (int i=0; i<n; i++) 
+   int i;
+   for (i=0; i<n; i++) 
        cdest[i] = csrc[i]; 
 }
 int main(int argc, char *argv[]){
@@ -176,7 +177,7 @@ if(output8[7]==-1) puts("open failed");
   if(result == -1) puts("write failed");
   result = write(output8[output_count%8],write_buf,write_ptr);//8
   if(result == -1) puts("write failed");
-  printf("%d\n",write_ptr);
+ // printf("%d\n",write_ptr);
 //  puts("write done");
   write_ptr = 0;
 
