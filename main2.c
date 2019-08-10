@@ -60,7 +60,7 @@ if(output8[7]==-1) puts("open failed");
   float feature1 = 0.0;
   int featureInt=0;
   bool lastRun = false;
-  char* write_buf = malloc(SIZE*1000);
+  char* write_buf = malloc(SIZE*100);
   int write_ptr = 0;
   #define WRITE(x,y,z) write_buf[write_ptr]=y; write_ptr+=z;
   #define PINRT1       WRITE(output,&bufOf1[0],sizeof(int32_t));

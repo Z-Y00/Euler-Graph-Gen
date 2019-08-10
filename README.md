@@ -13,6 +13,18 @@ Debug
 ./PaRMAT -nVertices 500000000 -nEdges  25000000000 -output 3.txt.sorted  -threads 14  -sorted -memUsage 0.6
 
 
+hdfs dfs -rm -r /home/yoo/euler/examples/test/1
+
+
+DATA_DIR="/home/yoo/euler/examples/$DATASET/$NUM_WORKERS"
+
+DATASET=$1
+
+./train_test.sh test  overlapcache sync  seele 1 seele 1
+
+hdfs dfs -mkdir -p /home/yoo/euler/examples/test/1/
+
+hadoop fs -copyFromLocal /home/yoo/euler/examples/test/debug.dat  /home/yoo/euler/examples/test/1
 
 ```
 
