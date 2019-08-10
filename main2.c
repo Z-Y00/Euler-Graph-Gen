@@ -42,16 +42,17 @@ if(output8[7]==-1) puts("open failed");
   int b; //to store the next int as string
   //init the buffer
   int edge_num = 0;
+  int i;//for the gcc 4.8 
   float* features = malloc(SIZE);//build feature space and reuse it 
-  for(int i=0;i<101;i++)
+  for( i=0;i<101;i++)
       features[i]=i*i;
   
   int64_t* edges = malloc(SIZE);
   float* bufOf1f = malloc(SIZE);
-  for(int i=0;i<NUM;i++)
+  for(i=0;i<NUM;i++)
       bufOf1f[i]=1.0;
   int32_t* bufOf1 = malloc(SIZE);
-  for(int i=0;i<NUM;i++)
+  for(i=0;i<NUM;i++)
       bufOf1[i]=1;
   int zero=0;
   int OneHundred=100;
@@ -141,10 +142,10 @@ if(output8[7]==-1) puts("open failed");
   //writer.writeInt(block.getEdge().size());
   WRITE(output,&edge_num,sizeof(int32_t));
   
-  for(int i=0;i<edge_num;i++){//all the same
+  for(i=0;i<edge_num;i++){//all the same
      WRITE(output,&edgeInfoBytes,sizeof(int32_t));
   }
-  for(int i=0;i<edge_num;i++){//for each edge
+  for(i=0;i<edge_num;i++){//for each edge
      WRITE(output,&a,sizeof(int64_t));//writer.writeLong(edge.getSrc_id());
      WRITE(output,&edges[i],sizeof(int64_t));//writer.writeLong(edge.getDst_id());
      PINRT1
