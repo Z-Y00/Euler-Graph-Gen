@@ -24,8 +24,9 @@ DATASET=$1
 
 hdfs dfs -mkdir -p /home/yoo/euler/examples/test/1/
 
-hadoop fs -copyFromLocal /home/yoo/euler/examples/test/debug.dat  /home/yoo/euler/examples/test/1
+hadoop fs -copyFromLocal /home/yoo/E/*  /home/yoo/euler/examples/test/
 
+hdfs dfs -lsr  /home/yoo/euler/examples/test/
 ```
 
 # Format;

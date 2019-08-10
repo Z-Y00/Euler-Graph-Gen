@@ -38,8 +38,8 @@ int main(int argc, char *argv[]){
 if(output8[7]==-1) puts("open failed");
   int output_count = 0; //roundrubin 
   
-  int a, next_a;
-  int b; //to store the next int as string
+  int64_t a, next_a;
+  int64_t b; //to store the next int as string
   //init the buffer
   int edge_num = 0;
   int i;//for the gcc 4.8 
@@ -69,14 +69,14 @@ if(output8[7]==-1) puts("open failed");
   #define ONEHundred   &OneHundred
   #define DEBUG        ;// printf("%d: %d %d\n",a,blockBytes,nodeInfoBytes);//puts("debug");
 
-  fscanf(input,"%d	",&next_a);
+  fscanf(input,"%lld	",&next_a);
   while(true){
   //loop begin
   //read in the data
       a = next_a;
-  fscanf(input,"%d",&b);
+  fscanf(input,"%lld",&b);
   //test if this is the last node
-  if(fscanf(input,"%d	",&next_a) == EOF) {lastRun = true; next_a = 0; }//force it to go on
+  if(fscanf(input,"%lld	",&next_a) == EOF) {lastRun = true; next_a = 0; }//force it to go on
    //build str
   edges[edge_num]=b;
   if(next_a == a){
@@ -112,7 +112,7 @@ if(output8[7]==-1) puts("open failed");
   PINRT1f//writer.writeFloat(block.getNode_weight());
   PINRT1 //writer.writeInt(meta.getEdge_type_num());
   //only have one
-  WRITE(output, &edge_num,sizeof(int32_t));//total num of E
+  WRITE(output, &edge_num,sizeof(int32_t));//total num of E//    writer.writeIntList(edgeGroupNum);
    //sumWeight should be EdgeNum*1.0
   float sumWeight = edge_num*1.0;
   WRITE(output,&sumWeight,sizeof(float));
