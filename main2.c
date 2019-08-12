@@ -25,21 +25,21 @@ int main(int argc, char *argv[]){
   int output4[4];
   int output8[8];
   //TODO add auto spliter roundrubin and opt
-  int output = open("./1-0.dat",O_WRONLY|O_CREAT); 
-  output2[0] = open("./2-0.dat",O_WRONLY|O_CREAT);
-  output2[1] = open("./2-1.dat",O_WRONLY|O_CREAT);
-  output4[0] = open("./4-0.dat",O_WRONLY|O_CREAT);
-  output4[1] = open("./4-1.dat",O_WRONLY|O_CREAT);
-  output4[2] = open("./4-2.dat",O_WRONLY|O_CREAT);
-  output4[3] = open("./4-3.dat",O_WRONLY|O_CREAT);
-  output8[0] = open("./8-0.dat",O_WRONLY|O_CREAT);
-  output8[1] = open("./8-1.dat",O_WRONLY|O_CREAT);
-  output8[2] = open("./8-2.dat",O_WRONLY|O_CREAT);
-  output8[3] = open("./8-3.dat",O_WRONLY|O_CREAT);
-  output8[4] = open("./8-4.dat",O_WRONLY|O_CREAT);
-  output8[5] = open("./8-5.dat",O_WRONLY|O_CREAT);
-  output8[6] = open("./8-6.dat",O_WRONLY|O_CREAT);
-  output8[7] = open("./8-7.dat",O_WRONLY|O_CREAT);
+  int output = open("./1_0.dat",O_WRONLY|O_CREAT); 
+  output2[0] = open("./2_0.dat",O_WRONLY|O_CREAT);
+  output2[1] = open("./2_1.dat",O_WRONLY|O_CREAT);
+  output4[0] = open("./4_0.dat",O_WRONLY|O_CREAT);
+  output4[1] = open("./4_1.dat",O_WRONLY|O_CREAT);
+  output4[2] = open("./4_2.dat",O_WRONLY|O_CREAT);
+  output4[3] = open("./4_3.dat",O_WRONLY|O_CREAT);
+  output8[0] = open("./8_0.dat",O_WRONLY|O_CREAT);
+  output8[1] = open("./8_1.dat",O_WRONLY|O_CREAT);
+  output8[2] = open("./8_2.dat",O_WRONLY|O_CREAT);
+  output8[3] = open("./8_3.dat",O_WRONLY|O_CREAT);
+  output8[4] = open("./8_4.dat",O_WRONLY|O_CREAT);
+  output8[5] = open("./8_5.dat",O_WRONLY|O_CREAT);
+  output8[6] = open("./8_6.dat",O_WRONLY|O_CREAT);
+  output8[7] = open("./8_7.dat",O_WRONLY|O_CREAT);
 
 if(output8[7]==-1) puts("open failed");
   int output_count = 0; //roundrubin 
