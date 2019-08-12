@@ -182,7 +182,77 @@ if(output8[7]==-1) puts("open failed");
   write_ptr = 0;
 
   if (lastRun) break;
-      
+  //output at the end!
+  if(next_a!=(a+1)){
+      //deal with empty nodes here
+      int empty_num = next_a - a;
+      int empty_node_id=a;
+      for(i=0;i<empty_num;i++){
+          empty_node_id++;
+          int nodeInfoBytes = 8 + 4 + 4 +\
+              4 + 4 + 4+\
+              0*(12)+\
+              4+0*(8+4)+\
+              4+2*4+1*4+4*(100)+\
+              4;
+  int edgeInfoBytes = 8 * 2 + 4 + 4 \
+                          +4 \
+                          +4 \
+                          +4;//36?
+  
+  int blockBytes =  4 + (4 + 4 * 0)+nodeInfoBytes+edgeInfoBytes*0;
+  DEBUG
+  WRITE(output,&blockBytes,sizeof(int32_t));
+  WRITE(output,&nodeInfoBytes,sizeof(int32_t));
+  WRITE(output,&empty_node_id,sizeof(int64_t));//writer.writeLong(block.getNode_id());
+  PINRT1 //writer.writeInt(block.getNode_type());
+  PINRT1f//writer.writeFloat(block.getNode_weight());
+  PINRT1 //writer.writeInt(meta.getEdge_type_num());
+  //only have one
+  WRITE(output, &zero,sizeof(int32_t));//total num of E//    writer.writeIntList(edgeGroupNum);
+   //sumWeight should be EdgeNum*1.0
+  float sumWeight = 0*1.0;
+  WRITE(output,&sumWeight,sizeof(float));
+  
+  //no uint64 feature
+  PINRT0
+  
+  //2 float feature getNode_float_feature_num
+  WRITE(output,&two,sizeof(int32_t));
+  //size of 1st feature
+  PINRT1
+  //size of 2nd feature
+  WRITE(output,ONEHundred,sizeof(int32_t));//100 for each node
+  
+  //content of 1st feature
+  WRITE(output,&feature1,sizeof(float));
+  featureInt=(featureInt+1)%2;
+  feature1 = featureInt;
+  //content of 2nd feature
+  WRITE(output,features,sizeof(float)*100);
+  
+  //no binary feature
+  PINRT0
+  
+  //writer.writeInt(block.getEdge().size());
+  WRITE(output,&zero,sizeof(int32_t));
+ 
+  //reset the num
+  edge_num = 0;
+  output_count++;
+  //real write
+  int result = 0;
+  result = write(output,write_buf,write_ptr);//1
+  if(result == -1) puts("write failed");
+  result = write(output2[output_count%2],write_buf,write_ptr);//2
+  if(result == -1) puts("write failed");
+  result = write(output4[output_count%4],write_buf,write_ptr);//4
+  if(result == -1) puts("write failed");
+  result = write(output8[output_count%8],write_buf,write_ptr);//8
+  if(result == -1) puts("write failed");
+  write_ptr = 0;
+    } 
+}      
 }
 close(output);
 close(output2[0]);  

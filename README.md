@@ -5,6 +5,10 @@ Debug
 ./PaRMAT -nVertices 500  -nEdges   25000 -output 1.txt.sorted  -threads 10  -sorted -memUsage 0.6
 
 [yoo@seele Release]$ 
+
+./PaRMAT -nVertices 50000  -nEdges   2500000 -output 0.05.txt.sorted  -threads 10  -sorted -memUsage 0.6
+
+./PaRMAT -nVertices 500000  -nEdges   25000000 -output 0.5.txt.sorted  -threads 10  -sorted -memUsage 0.6
 ./PaRMAT -nVertices 5000000  -nEdges   250000000 -output 1.txt.sorted  -threads 10  -sorted -memUsage 0.6
 ./PaRMAT -nVertices 50000000  -nEdges  2500000000 -output 2.txt.sorted  -threads 10  -sorted -memUsage 0.6
 
@@ -20,21 +24,34 @@ DATA_DIR="/home/yoo/euler/examples/$DATASET/$NUM_WORKERS"
 DATASET=$1
 
 
-hdfs dfs -mkdir -p /home/yoo/euler/examples/test/1/ /home/yoo/euler/examples/test/2/ /home/yoo/euler/examples/test/4/ /home/yoo/euler/examples/test/8/
+hdfs dfs -mkdir -p /home/yoo/euler/examples/test/1/ /home/yoo/euler/examples/test/2/ /home/yoo/euler/examples/test/4/ /home/yoo/euler/examples/test/8/ /home/yoo/euler/examples/debug/1/
 
-./run.sh ../PaRMAT/Release/1.txt.sorted ./test1/ 
+
+hdfs dfs -mkdir -p /home/yoo/euler/examples/0.5/1/ 
+hdfs dfs -mkdir -p /home/yoo/euler/examples/0.05/1/ 
+hadoop fs -copyFromLocal /home/yoo/Euler-Graph-Gen/0.05/1/1-0.dat /home/yoo/euler/examples/0.05/1/
+hadoop fs -copyFromLocal /home/yoo/Euler-Graph-Gen/0.5/1/1-0.dat /home/yoo/euler/examples/0.5/1/
+hadoop fs -copyFromLocal /home/yoo/Euler-Graph-Gen/debug/1/1-0.dat /home/yoo/euler/examples/debug/1/
 
 
 cd ~/E
 ./build.sh
 ./run.sh ../PaRMAT/Release/debug.txt ./test1/ 
-hdfs dfs -rm -r /home/yoo/euler/examples/test/1
+./run.sh ../PaRMAT/Release/1.txt.sorted ./test1/ 
+Node Count:4664768 Edge Count:250000000
+
+hdfs dfs -rm -r /home/yoo/euler/examples/test
 hadoop fs -copyFromLocal /home/yoo/Euler-Graph-Gen/test1/1/*  /home/yoo/euler/examples/test/1
+hadoop fs -copyFromLocal /home/yoo/Euler-Graph-Gen/test1/2/*  /home/yoo/euler/examples/test/2
+
+hadoop fs -copyFromLocal /home/yoo/Euler-Graph-Gen/test1/4/*  /home/yoo/euler/examples/test/4
+
+hadoop fs -copyFromLocal /home/yoo/Euler-Graph-Gen/test1/8/*  /home/yoo/euler/examples/test/8
 
 cd ~/euler/examples/
 ./train_test.sh test  overlapcache sync  seele 1 seele 1
 
-cd ~/E
+cd ~/Euler-Graph-Gen
 
 hdfs dfs -lsr -h  /home/yoo/euler/examples/test/
 ```
@@ -71,3 +88,10 @@ https://github.com/alibaba/euler/wiki/%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87
 ```
 
 #
+
+
+x c
+返回 node 
+删除 cache
+重新编译，不改cmakelist
+debug 小图：
