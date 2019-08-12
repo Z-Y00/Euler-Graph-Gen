@@ -29,10 +29,14 @@ hdfs dfs -mkdir -p /home/yoo/euler/examples/test/1/ /home/yoo/euler/examples/tes
 
 
 hdfs dfs -mkdir -p /home/yoo/euler/examples/0.05/1/ 
-hadoop fs -copyFromLocal /home/yoo/Euler-Graph-Gen/0.05/1/1-0.dat /home/yoo/euler/examples/0.05/1/
+hadoop fs -copyFromLocal /home/yoo/Euler-Graph-Gen/0.05/1/1_0.dat /home/yoo/euler/examples/0.05/1/
+
+
+hdfs dfs -rm -r /home/yoo/euler/examples/0.5/1
 hdfs dfs -mkdir -p /home/yoo/euler/examples/0.5/1/ 
-hadoop fs -copyFromLocal /home/yoo/Euler-Graph-Gen/0.5/1/1-0.dat /home/yoo/euler/examples/0.5/1/
-hadoop fs -copyFromLocal /home/yoo/Euler-Graph-Gen/debug/1/1-0.dat /home/yoo/euler/examples/debug/1/
+hadoop fs -copyFromLocal /home/yoo/Euler-Graph-Gen/0.5/1/1_0.dat /home/yoo/euler/examples/0.5/1/
+
+hadoop fs -copyFromLocal /home/yoo/Euler-Graph-Gen/debug/1/1_0.dat /home/yoo/euler/examples/debug/1/
 
 
 cd ~/E
@@ -40,7 +44,6 @@ cd ~/E
 ./run.sh ../PaRMAT/Release/debug.txt ./test1/ 
 ./run.sh ../PaRMAT/Release/1.txt.sorted ./test1/ 
 Node Count:4664768 Edge Count:250000000
-hdfs dfs -rm -r /home/yoo/euler/examples/0.5
 hdfs dfs -rm -r /home/yoo/euler/examples/test
 hadoop fs -copyFromLocal /home/yoo/Euler-Graph-Gen/test1/1/*  /home/yoo/euler/examples/test/1
 hadoop fs -copyFromLocal /home/yoo/Euler-Graph-Gen/test1/2/*  /home/yoo/euler/examples/test/2
